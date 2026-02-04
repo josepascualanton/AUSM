@@ -1,19 +1,20 @@
-function M = mach(U)
+function [Mu, Mv] = mach(U)
 
-[~, Ny, Nx] = size(U);
-    
-    M = zeros(Ny, Nx);
     gamma = 1.4;
 
-    rho(:, :) = U(1, :, :);
-    
-    u2(:, :) = U(2, :, :);
-    u3(:, :) = U(3, :, :);
-    
+    rho = squeeze(U(1,:,:));
+    u2 = squeeze(U(2,:,:));
+    u3 = squeeze(U(3,:,:));
+    u4 = squeeze(U(4,:,:));
+
     ux = u2 ./ rho;
     uy = u3 ./ rho;
 
-    c = 300;
+    p = (gamma-1) .* (u4 - 0.5 .* rho .* (ux.^2 + uy.^2));
+    p = max(p, 1);
 
-    M = sqrt(ux.^2 + uy.^2)/c;
+    a = sqrt(gamma .* p ./ rho);
+    
+    Mu = ux/a;
+    Mv = uy/a;
 end

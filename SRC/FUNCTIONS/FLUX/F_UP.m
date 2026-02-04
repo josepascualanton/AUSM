@@ -1,15 +1,18 @@
-function F = F_UP(Fc, M, P)
+function F = F_UP(Fc, Mv, P)
 
-[Ny, Nx] = size(M);
+[Ny, Nx] = size(Mv);
 F = zeros(4, Ny, Nx);
 
-for i = 2: (Nx - 1)
-    for j = 2: (Ny - 1)
+for j = 2:Ny-1
+    for i = 2:Nx-1
 
-        Mij = Msplit_sum(M(i, j), M(i, j + 1));
-        Pij = Psplit_sum(P(i, j), P(i, j + 1), M(i, j), M(i, j +1));
-        
-        F(:, i, j) = 1/2*Mij*(Fc(:, i, j) + Fc(:, i, j + 1)) - 1/2*abs(Mij)*(Fc(:, i, j + 1) - Fc(:, i, j)) + Pij*[0; 0; 1; 0];
+        Mij = Msplit_sum(Mv(j, i), Mv(j+1, i));
+        Pij = Psplit_sum(P(j, i), P(j+1, i), Mv(j, i), Mv(j+1, i));
+
+        F(:, j, i) = ...
+            0.5*Mij*(Fc(:, j, i) + Fc(:, j+1, i)) ...
+          - 0.5*abs(Mij)*(Fc(:, j+1, i) - Fc(:, j, i)) ...
+          + Pij*[0; 0; 1; 0];
     end
 end
 end
