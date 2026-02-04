@@ -59,7 +59,7 @@ set(gca,'YDir','normal')
 colorbar
 xlabel('x')
 ylabel('y')
-title('Densidad \rho')
+title('Velocidad \u')
 caxis([0.8 1.2])   % ajusta según tu problema
 drawnow
 
@@ -68,8 +68,8 @@ for n = 1:N_steps
     U = Euler_explicit(U, mesh_x, mesh_y, dt);
 
     if mod(n,5) == 0
-        set(h, 'CData', squeeze(U(2,:,:)./U(1,:,:);
-        title(sprintf('Densidad \\rho  |  Paso %d', n))
+        set(h, 'CData', squeeze(U(2,:,:)./U(1,:,:)));
+        title(sprintf('velocidad \\rho  |  Paso %d', n))
         drawnow
     end
 
