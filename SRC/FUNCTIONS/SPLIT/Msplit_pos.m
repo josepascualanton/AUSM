@@ -1,4 +1,4 @@
-function M = split_pos(M)
+function M = Msplit_pos(M)
     
     if abs(M) < 1
         M = ((M+1)^2)/4;

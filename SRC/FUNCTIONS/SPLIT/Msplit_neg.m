@@ -1,4 +1,4 @@
-function M = split_neg(M)
+function M = Msplit_neg(M)
     
     if abs(M) < 1
         M = -((M-1)^2)/4;
