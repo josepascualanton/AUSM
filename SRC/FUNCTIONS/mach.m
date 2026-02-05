@@ -11,10 +11,10 @@ function [Mu, Mv] = mach(U)
     uy = u3 ./ rho;
 
     p = (gamma-1) .* (u4 - 0.5 .* rho .* (ux.^2 + uy.^2));
-    p = max(p, 1);
+    p = max(p, eps);
 
     a = sqrt(gamma .* p ./ rho);
     
-    Mu = ux/a;
-    Mv = uy/a;
+    Mu = ux./a;
+    Mv = uy./a;
 end

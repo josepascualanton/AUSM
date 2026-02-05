@@ -1,7 +1,8 @@
-function Fc = convective(U)
+function [Fcx, Fcy] = convective(U)
     [~, Ny, Nx] = size(U);
     gamma = 1.4;
-    Fc = zeros(4, Ny, Nx);
+    Fcx = zeros(4, Ny, Nx);
+    Fcy = zeros(4, Ny, Nx);
 
     rho(:, :) = squeeze(U(1,:,:));
     u2(:, :) = squeeze(U(2, :, :));
@@ -12,13 +13,20 @@ function Fc = convective(U)
     v = u3 ./ rho;
     
     p   = (gamma-1) .* (u4 - 0.5 .* rho .* (u.^2 + v.^2));
-    p = max(p, eps);
+    p = max(p, 0.01);
+
     a   = sqrt(gamma .* p ./ rho);
     H   = (u4 + p) ./ rho;
     
-    Fc(1, :, :) = rho.*a;
-    Fc(2, :, :) = rho.*a.*u;
-    Fc(3, :, :) = rho.*a.*v;
-    Fc(4, :, :) = rho.*a.*H;
+    Fcx(1, :, :) = rho.*a;
+    Fcx(2, :, :) = rho.*a.*u;
+    Fcx(3, :, :) = rho.*a.*v;
+    Fcx(4, :, :) = rho.*a.*H;
+
+    Fcy(1, :, :) = rho.*a;
+    Fcy(2, :, :) = rho.*a.*u;
+    Fcy(3, :, :) = rho.*a.*v;
+    Fcy(4, :, :) = rho.*a.*H;
+    
     
 end

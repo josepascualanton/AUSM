@@ -15,11 +15,11 @@ c = 300;
 %% Discretizacion matematica
 Lx = 1;
 Ly = 1;
-dt = 0.000001;
+dt = 0.0000001;
 N_steps = 5000;
 
-Nx = 100; % Number of grid points in x-direction
-Ny = 100; % Number of grid points in y-direction
+Nx = 50; % Number of grid points in x-direction
+Ny = 50; % Number of grid points in y-direction
 dx = Lx / (Nx - 1); % Grid spacing in x-direction
 dy = Ly / (Ny - 1); % Grid spacing in y-direction
 
@@ -41,14 +41,14 @@ end
 
 ro_0 = 1;
 u_0 = 10;
-v_0 = 20;
+v_0 = 0;
 P_0 = 100;
 E_0 = P_0/((gamma - 1)*ro_0) + (u_0^2 + v_0^2)/2;
 
 epsilon = 0.1;
 U(1, :, :) = ones(Ny, Nx)*ro_0;               % Densidad constante en toda la malla
-U(2,:,:) = ro_0 * (u_0 + epsilon*randn(Ny,Nx));
-U(3,:,:) = ro_0 * (v_0 + epsilon*randn(Ny,Nx));
+U(2,:,:) = ro_0 * (u_0 + 0*epsilon*randn(Ny,Nx));
+U(3,:,:) = ro_0 * (v_0 + 0*epsilon*randn(Ny,Nx));
 U(4, :, :) = ones(Ny, Nx)*ro_0 * E_0;        % Energía total (rho * Et) constante
 
 
